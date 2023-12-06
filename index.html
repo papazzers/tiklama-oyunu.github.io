@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tıklama Oyunu</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #clickArea {
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    #flashImage {
+      display: none;
+      margin-top: 20px;
+      max-width: 100%; /* Resmin mobilde ekran genişliği kadar geniş olmasını sağlar */
+      height: auto; /* Oranlarını koruyarak resmin yüksekliğini otomatik olarak ayarlar */
+    }
+  </style>
+</head>
+<body>
+
+<h1>Tıklama Oyunu</h1>
+<p id="score">Puan: 0</p>
+<button id="clickArea" onclick="increaseScore()">Tıkla!</button>
+<img id="flashImage" src="https://i.hizliresim.com/8gymsgh.jpeg" alt="Flash Image">
+
+<audio id="myAudio" src="audio.mp3"></audio>
+
+<script>
+  var score = 0;
+
+  function increaseScore() {
+    score++;
+    updateScore();
+
+    if (score === 24) {
+      playMusic();
+      showFlashImage();
+      disableClickArea();
+      startFlashing();
+    }
+
+    // Oyunu isteğinize göre genişletebilirsiniz.
+  }
+
+  function updateScore() {
+    document.getElementById('score').innerText = "Puan: " + score;
+  }
+
+  function playMusic() {
+    var audio = document.getElementById('myAudio');
+    audio.play();
+  }
+
+  function showFlashImage() {
+    var flashImage = document.getElementById('flashImage');
+    flashImage.style.display = 'block';
+
+    // Belirli bir süre sonra resmi gizle
+    setTimeout(function() {
+      flashImage.style.display = 'none';
+    }, 2000); // 2000 milisaniye (2 saniye)
+  }
+
+  function disableClickArea() {
+    var clickArea = document.getElementById('clickArea');
+    clickArea.disabled = true;
+  }
+</script>
+<script>
+  var flashInterval;
+
+  function startFlashing() {
+    flashInterval = setInterval(function() {
+      toggleFlash();
+    }, 500); // 500 milisaniye aralıklarla
+  }
+
+  function toggleFlash() {
+    var flashImage = document.getElementById('flashImage');
+    flashImage.style.display = (flashImage.style.display === 'none') ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>
